@@ -33,7 +33,7 @@ async (req: Request, res: Response) => {
   if (errors.isEmpty()) {
     
     if (await emailExists(email)) {
-      res.status(200).json({message: ['Email already in use.']});
+      res.status(409).json({message: ['Email already in use.']});
     } else {
       const hashedPassword = hashSync(password, workFactor);    
       await insertUser(email, hashedPassword)
@@ -57,7 +57,7 @@ async (req: Request, res: Response) => {
     const { email } = req.body;
 
     if (await emailExists(email)) {
-      res.status(200).json({message: ["Thanks, you are already subscribed."]}); 
+      res.status(409).json({message: ["Thanks, you are already subscribed."]}); 
     } else {
       instertMarketingEmail(email);
       res.status(200).json({message: [emailSuccessMessage]}); 

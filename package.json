@@ -17,6 +17,7 @@
     "express": "^4.18.2",
     "express-validator": "^6.15.0",
     "mysql": "^2.18.1",
+    "passport": "^0.6.0",
     "typescript": "^4.9.5"
   },
   "devDependencies": {
@@ -25,6 +26,7 @@
     "@types/mysql": "^2.15.21",
     "@types/node": "^18.14.1",
     "@types/nodemon": "^1.19.2",
+    "@types/passport": "^1.0.12",
     "concurrently": "^7.6.0",
     "nodemon": "^2.0.20",
     "ts-node": "^10.9.1"

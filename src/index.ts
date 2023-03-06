@@ -8,7 +8,7 @@ import {hashSync} from "bcrypt";
 const app: Express = express();
 const port = process.env.PORT || 5000;
 
-app.use(express.json());
+app.use(express.json({limit: '2kb'}));
 
 app.get('/', (req: Request, res: Response) => {
 

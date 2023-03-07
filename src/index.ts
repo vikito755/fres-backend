@@ -1,49 +1,25 @@
 import express, { Express, Request, Response } from 'express';
-import dotenv from 'dotenv';
 import { check, validationResult } from 'express-validator';
-import { emailExists, insertUser, instertMarketingEmail } from './lib/db';
+import { emailExists, instertMarketingEmail } from './lib/db';
 import { emailSuccessMessage, minPasswordLength, workFactor } from './constants';
-import {hashSync} from "bcrypt";
+
+// Additional libraries used - express-validator, bcrypt js.
 
 const app: Express = express();
 const port = process.env.PORT || 5000;
 
 app.use(express.json({limit: '2kb'}));
 
-app.get('/', (req: Request, res: Response) => {
+app.post('/register',
+async (req: Request, res: Response) => {
 
-  res.send('Fres, nai-dobroto dnes!')
-
+  res.status(200).json({message: ['Registered successfully.']});
 });
 
-app.post('/register',
-          check('email').exists()
-          .isEmail()
-          .withMessage('Invalid email address.'),
+app.post('/login', async (req: Request, res: Response) => {
 
-          check('password').exists()
-          .isStrongPassword({'minLength': minPasswordLength})
-          .withMessage(`Please choose a password that is at least ${minPasswordLength} characters containing, an upper and lower case letters, special characters and numbers.`),
-async (req: Request, res: Response) => {
-  
-  const { email, password } = req.body;
-
-  const errors = validationResult(req);
-
-  if (errors.isEmpty()) {
-    
-    if (await emailExists(email)) {
-      res.status(409).json({message: ['Email already in use.']});
-    } else {
-      const hashedPassword = hashSync(password, workFactor);    
-      await insertUser(email, hashedPassword)
-      res.status(200).json({message: ['Registered successfully.']});
-    }
-
-  } else {
-    res.status(500).json({message: errors});
-  }
-
+  // TODO - verify that the user exists and return some verification token.
+  res.status(200).json({message: ['User logged in successfully.']});
 });
 
 app.post('/emailSubscribe',

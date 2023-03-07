@@ -30,30 +30,6 @@ export const instertMarketingEmail = async (email: string) => {
 
 }
 
-export const insertUser = async (email: string, hashedPassword: string) => {
-
- connection.query(`INSERT INTO ${USERS} (email, password, is_admin) VALUES (?, ?, ?)`, 
-  [email, hashedPassword, null],
-  function (error: any, results) {
-
-    try {
-      if (error && error.code === 'ER_DUP_ENTRY') {
-        console.error(`Duplicate entry email: ${email}`);
-        return "Email already in use.";
-      } else if (error) {
-        console.error(`Duplicate entry email: ${email}`);
-        return "An unexpected error occured, please try again later.";
-      } else {
-        console.log('User registered successfully: ', results);
-        return "Successful registration";
-      }
-    } catch(error: any) {
-      throw new Error(error.message);
-    }
-    
-  });
-}
-
 export function emailExists(email: string) {
 
   return new Promise((resolve, reject) => {

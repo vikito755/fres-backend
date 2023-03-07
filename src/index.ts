@@ -22,7 +22,20 @@ app.post('/login', async (req: Request, res: Response) => {
   res.status(200).json({message: ['User logged in successfully.']});
 });
 
+app.get('/allProducts', async (req: Request, res: Response) => {
+
+  // TODO - should list all products.
+  res.status(200).json({message: 
+    [
+      {title: "product title", imageUrl: "product url", description: 'product description.'},
+      {title: "product title", imageUrl: "product url", description: 'product description.'}
+  ]});
+});
+
 app.post('/emailSubscribe',
+      // The 2 following lines are from: https://express-validator.github.io/docs/
+      // https://express-validator.github.io/docs/validation-chain-api/#existsoptions
+      // https://express-validator.github.io/docs/validation-chain-api/#standard-validators
         check('email').exists()
                       .isEmail(),
 async (req: Request, res: Response) => {
@@ -38,7 +51,6 @@ async (req: Request, res: Response) => {
       instertMarketingEmail(email);
       res.status(200).json({message: [emailSuccessMessage]}); 
     }
-    
     
   } else {
     res.status(422).json({message: ['Please provide a valid email.']});

@@ -31,9 +31,9 @@ export const instertMarketingEmail = async (email: string) => {
 }
 
 export function emailExists(email: string) {
-
+// Check if an email already exists in a database table.
   return new Promise((resolve, reject) => {
-    connection.query('SELECT COUNT(*) AS count FROM users WHERE email = ?', email, function (error, results, fields) {
+    connection.query(`SELECT COUNT(*) AS count FROM ${USERS} WHERE email = ?`, email, function (error, results, fields) {
       if (error) reject(error);
       const count = results[0].count;
       resolve(count > 0);

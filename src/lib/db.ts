@@ -9,8 +9,7 @@ const connection = createConnection({
   database: serverConfig.dbName
 });
 
-// connection.connect();
-
+// Database tables:
 const MARKETING_EMAILS = 'marketing_emails';
 const USERS = 'users';
 
@@ -66,27 +65,3 @@ export function emailExists(email: string) {
   });
 
 }
-
-// function emailExists(email: string) {
-//   connection.query(`SELECT COUNT(*) AS cnt FROM ${USERS} WHERE email = ?`, 
-//   [email] , function(err , data){
-//     if(err){
-//         console.log(err);
-//     }   
-//     else{
-//         if(data[0].cnt > 0){  
-//               // Already exist 
-//         }else{
-//             connection.query("INSERT INTO ..." , function(err , insert){
-//                 if(err){
-//                     return "An unexpected error occured."
-//                     // retunn error
-//                 }else{
-
-//                     // return success , user will insert 
-//                 }
-//             })                  
-//         }
-//     }
-//   })
-// }
